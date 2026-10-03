@@ -88,11 +88,14 @@ Las instrucciones completas para GitHub, Supabase, Render y Vercel están al fin
 |---|---|
 | `NODE_ENV` | `production` en Render |
 | `DATABASE_URL` | URL PostgreSQL de Supabase |
+| `DATABASE_SSL_CA` | Opcional; ruta del certificado raíz oficial descargado desde Supabase |
 | `JWT_SECRET` | Cadena aleatoria propia de al menos 32 caracteres |
 | `CORS_ORIGINS` | URL local y URL exacta de Vercel, separadas por comas |
 | `PORT` | Render la asigna automáticamente; local usa `3000` |
 
 `frontend/config.js` contiene solo la URL pública de la API, no es un secreto. Al desplegar, se reemplaza por la URL de Render.
+
+Si Node informa `self-signed certificate in certificate chain`, descarga el certificado raíz oficial desde **Supabase → Database → Settings → SSL Configuration**. Guarda el archivo en la raíz del proyecto como `supabase-ca.crt` y configura `DATABASE_SSL_CA=./supabase-ca.crt`. Esa ruta hace que el backend valide el certificado y el nombre del servidor. No uses `NODE_TLS_REJECT_UNAUTHORIZED=0` ni desactives la verificación TLS. El certificado raíz es público; nunca publiques `DATABASE_URL` ni `.env`.
 
 ## Seguridad aplicada
 
