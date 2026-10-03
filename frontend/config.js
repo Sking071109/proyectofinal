@@ -1,3 +1,3 @@
 window.APP_CONFIG = {
-  apiUrl: 'http://localhost:3000/api',
+  apiUrl: 'https://proyectofinal-qz7q.onrender.com/api',
 };
