@@ -1,0 +1,83 @@
+@baseUrl = http://localhost:3000/api
+@token = Pega_aqui_el_token_de_login
+@transactionId = 1
+
+### Salud
+GET {{baseUrl}}/health
+
+### Registrar cuenta (elimina este bloque si ya existe)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "estudiante@example.com",
+  "password": "UnaClaveSegura123"
+}
+
+### Iniciar sesión
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "estudiante@example.com",
+  "password": "UnaClaveSegura123"
+}
+
+### Crear gasto
+POST {{baseUrl}}/transactions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "description": "Almuerzo",
+  "amount": 8500,
+  "category": "Comida",
+  "spent_on": "2026-10-03"
+}
+
+### Listar y filtrar gastos
+GET {{baseUrl}}/transactions?month=2026-10&page=1
+Authorization: Bearer {{token}}
+
+### Editar gasto
+PUT {{baseUrl}}/transactions/{{transactionId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "description": "Almuerzo actualizado",
+  "amount": 9000,
+  "category": "Comida",
+  "spent_on": "2026-10-03"
+}
+
+### Eliminar gasto
+DELETE {{baseUrl}}/transactions/{{transactionId}}
+Authorization: Bearer {{token}}
+
+### Caso que debe fallar: intento de inyección en la categoría (400 por validación)
+POST {{baseUrl}}/transactions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "description": "Prueba de seguridad",
+  "amount": 1,
+  "category": "Comida' OR 1=1 --",
+  "spent_on": "2026-10-03"
+}
+
+### Caso que debe fallar: petición privada sin token (401)
+GET {{baseUrl}}/transactions
+
+### Caso que debe fallar: monto inválido (400)
+POST {{baseUrl}}/transactions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "description": "Monto negativo",
+  "amount": -50,
+  "category": "Comida",
+  "spent_on": "2026-10-03"
+}

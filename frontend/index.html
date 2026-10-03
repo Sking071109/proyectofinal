@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f6f2">
+    <meta name="description" content="Un lugar sencillo para entender y cuidar tus gastos del mes.">
+    <title>Bolsillo Claro — tus gastos en orden</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./config.js"></script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <main id="auth-view" class="auth-layout">
+      <section class="welcome-panel" aria-label="Presentación">
+        <a class="brand brand-light" href="./" aria-label="Bolsillo Claro, inicio">
+          <span class="brand-mark" aria-hidden="true">b</span>
+          <span>Bolsillo<span class="brand-soft">Claro</span></span>
+        </a>
+        <div class="welcome-copy">
+          <p class="eyebrow">UN POCO MÁS DE CLARIDAD</p>
+          <h1>Tu dinero,<br>en buenas manos.</h1>
+          <p>Un espacio tranquilo para registrar tus gastos, descubrir tus hábitos y decidir con más calma.</p>
+        </div>
+        <div class="welcome-note">
+          <span class="note-icon" aria-hidden="true">✳</span>
+          <p>Los pequeños pasos<br>también cuentan.</p>
+        </div>
+        <span class="panel-decoration decoration-one" aria-hidden="true"></span>
+        <span class="panel-decoration decoration-two" aria-hidden="true"></span>
+      </section>
+
+      <section class="auth-main">
+        <div class="auth-card">
+          <p id="auth-eyebrow" class="eyebrow">BIENVENIDA/O DE VUELTA</p>
+          <h2 id="auth-title">Qué bueno tenerte aquí.</h2>
+          <p id="auth-description" class="muted">Ingresa tus datos para ver cómo va tu mes.</p>
+          <form id="auth-form" class="form-stack">
+            <label for="auth-email">Correo electrónico</label>
+            <input id="auth-email" name="email" type="email" autocomplete="email" placeholder="tu@correo.com" maxlength="254" required>
+            <label for="auth-password">Contraseña</label>
+            <input id="auth-password" name="password" type="password" autocomplete="current-password" placeholder="Al menos 8 caracteres" minlength="8" maxlength="72" required>
+            <button id="auth-submit" class="button button-primary button-wide" type="submit">Entrar a mi espacio</button>
+          </form>
+          <p id="auth-status" class="status-message" role="status" aria-live="polite"></p>
+          <p class="auth-switch"><span id="auth-switch-copy">¿Todavía no tienes una cuenta?</span> <button id="auth-switch" class="text-button" type="button">Crear cuenta</button></p>
+        </div>
+        <p class="privacy-note"><span aria-hidden="true">◈</span> Tus gastos son privados y solo tú puedes verlos.</p>
+      </section>
+    </main>
+
+    <main id="app-view" class="app-layout" hidden>
+      <aside class="sidebar">
+        <a class="brand" href="./" aria-label="Bolsillo Claro, inicio">
+          <span class="brand-mark" aria-hidden="true">b</span>
+          <span>Bolsillo<span class="brand-soft">Claro</span></span>
+        </a>
+        <div class="sidebar-label">TU ESPACIO</div>
+        <div class="sidebar-link sidebar-link-active"><span aria-hidden="true">◷</span> Mis gastos</div>
+        <div class="sidebar-bottom">
+          <div class="avatar" aria-hidden="true">✳</div>
+          <div class="profile-copy"><span id="profile-email"></span><small>Cuenta personal</small></div>
+          <button id="logout-button" class="icon-button" type="button" aria-label="Cerrar sesión" title="Cerrar sesión">↗</button>
+        </div>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">TU RESUMEN PERSONAL</p>
+            <h1>Hola, <span id="greeting-name">qué bueno verte</span> <span aria-hidden="true">✳</span></h1>
+          </div>
+          <label class="month-picker" for="month-filter"><span aria-hidden="true">▦</span> <span>Mes</span>
+            <input id="month-filter" type="month">
+          </label>
+        </header>
+
+        <section class="summary-grid" aria-label="Resumen del mes">
+          <article class="summary-card summary-total">
+            <div class="summary-label">Gastos en este mes <span class="summary-icon" aria-hidden="true">↗</span></div>
+            <p id="total-amount" class="summary-amount">$0</p>
+            <p id="total-caption" class="summary-caption">Lo que registraste hasta ahora</p>
+          </article>
+          <article class="summary-card">
+            <div class="summary-label">Movimientos <span class="summary-icon pale" aria-hidden="true">≋</span></div>
+            <p id="total-count" class="summary-amount">0</p>
+            <p class="summary-caption">Gastos anotados este mes</p>
+          </article>
+          <article class="summary-card summary-tip">
+            <span class="tip-spark" aria-hidden="true">✳</span>
+            <p>Mirar tus gastos<br>es el primer paso<br>para elegir mejor.</p>
+            <span class="tip-caption">UN DÍA A LA VEZ</span>
+          </article>
+        </section>
+
+        <section class="content-grid">
+          <article class="panel transactions-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">TU ACTIVIDAD</p>
+                <h2>Gastos recientes</h2>
+              </div>
+              <div class="filters">
+                <label class="visually-hidden" for="category-filter">Filtrar por categoría</label>
+                <select id="category-filter" aria-label="Filtrar por categoría">
+                  <option value="">Todas las categorías</option>
+                  <option>Comida</option><option>Transporte</option><option>Hogar</option>
+                  <option>Salud</option><option>Ocio</option><option>Otros</option>
+                </select>
+                <label class="visually-hidden" for="search-filter">Buscar descripción</label>
+                <input id="search-filter" type="search" maxlength="80" placeholder="Buscar…">
+              </div>
+            </div>
+            <div class="table-head" aria-hidden="true"><span>GASTO</span><span>CATEGORÍA</span><span>FECHA</span><span>MONTO</span><span></span></div>
+            <div id="transaction-list" class="transaction-list"></div>
+            <div id="list-status" class="list-status" role="status" aria-live="polite"></div>
+            <div class="list-footer">
+              <span id="page-caption">Página 1</span>
+              <div class="page-actions">
+                <button id="previous-page" class="page-button" type="button" aria-label="Página anterior">←</button>
+                <button id="next-page" class="page-button" type="button" aria-label="Página siguiente">→</button>
+              </div>
+            </div>
+          </article>
+
+          <aside class="panel entry-panel">
+            <div class="panel-heading entry-heading">
+              <div>
+                <p id="entry-eyebrow" class="eyebrow">UN MOMENTO PARA TI</p>
+                <h2 id="entry-title">Anota un gasto</h2>
+              </div>
+              <span class="entry-spark" aria-hidden="true">✳</span>
+            </div>
+            <p class="muted entry-description">Cada pequeño registro te ayuda a ver el panorama completo.</p>
+            <form id="transaction-form" class="form-stack transaction-form">
+              <label for="transaction-description">¿En qué fue?</label>
+              <input id="transaction-description" name="description" type="text" maxlength="120" placeholder="Ej. Café con amigos" required>
+              <div class="form-row">
+                <div>
+                  <label for="transaction-amount">¿Cuánto?</label>
+                  <div class="amount-input"><span>$</span><input id="transaction-amount" name="amount" type="number" min="0.01" max="1000000000" step="0.01" placeholder="0" required></div>
+                </div>
+                <div>
+                  <label for="transaction-date">¿Cuándo?</label>
+                  <input id="transaction-date" name="spent_on" type="date" required>
+                </div>
+              </div>
+              <label for="transaction-category">Categoría</label>
+              <select id="transaction-category" name="category" required>
+                <option value="" disabled selected>Elige una categoría</option>
+                <option>Comida</option><option>Transporte</option><option>Hogar</option>
+                <option>Salud</option><option>Ocio</option><option>Otros</option>
+              </select>
+              <div class="form-actions">
+                <button id="cancel-edit" class="button button-secondary" type="button" hidden>Cancelar</button>
+                <button id="transaction-submit" class="button button-dark" type="submit">Guardar gasto <span aria-hidden="true">↗</span></button>
+              </div>
+            </form>
+            <p id="form-status" class="status-message" role="status" aria-live="polite"></p>
+          </aside>
+        </section>
+        <footer class="app-footer"><span>Un día a la vez.</span><span>Hecho para vivir con más claridad <span aria-hidden="true">✳</span></span></footer>
+      </section>
+    </main>
+  </body>
+</html>
