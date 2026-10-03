@@ -2,6 +2,19 @@
 
 Una app para que una persona registre sus gastos y entienda en qué se le va el dinero, en vez de llevarlo en notas o en la memoria.
 
+## Demo
+
+- App: [https://proyectofinal-frontend-ten.vercel.app/](https://proyectofinal-frontend-ten.vercel.app/)
+- API: [https://proyectofinal-qz7q.onrender.com](https://proyectofinal-qz7q.onrender.com)
+- Salud de la API: [https://proyectofinal-qz7q.onrender.com/api/health](https://proyectofinal-qz7q.onrender.com/api/health)
+- Cuenta de prueba: `demo@bolsilloclaro.example` / `BolsilloDemo2026!`
+
+La cuenta anterior es pública y se usa solo para mostrar la app; no guardes información personal en ella. También puedes crear tu propia cuenta.
+
+## Capturas
+
+![Panel de gastos de Bolsillo Claro con tres movimientos de demostración](./screenshots/dashboard.png)
+
 ## Qué incluye
 
 - Registro e inicio de sesión con contraseñas hasheadas con bcrypt y JWT de 2 horas.
@@ -57,15 +70,15 @@ Requiere Node.js 20 o superior y una base PostgreSQL de Supabase.
    pnpm install
    ```
 
-2. En Supabase, crea un proyecto y abre **SQL Editor**. Copia y ejecuta el contenido de `schema.sql`.
-3. Copia `.env.example` a `.env` y completa la conexión de PostgreSQL y el secreto JWT. En PowerShell:
+2. En Supabase, crea un proyecto y abre **SQL Editor**. Copia y ejecuta el contenido de `schema.sql`. El script crea las tablas, una cuenta pública de demostración y tres gastos de ejemplo; se puede volver a ejecutar sin duplicar esos datos.
+3. Copia `.env.example` a `.env` y completa la conexión de PostgreSQL, el secreto JWT y el certificado TLS si Supabase lo requiere. En PowerShell:
 
    ```powershell
    Copy-Item .env.example .env
    node -e "console.log(require('node:crypto').randomBytes(48).toString('hex'))"
    ```
 
-   Usa el resultado como `JWT_SECRET`. Para `DATABASE_URL`, copia la cadena de conexión PostgreSQL de Supabase. Si la API corre fuera de Supabase, el pooler de sesión suele ser la opción más compatible; conserva los parámetros SSL de Supabase.
+   Usa el resultado como `JWT_SECRET`. Para `DATABASE_URL`, copia la cadena de conexión PostgreSQL de Supabase. Si Node informa un error de certificado TLS, descarga el certificado raíz desde Database → Settings → SSL Configuration, guárdalo como `supabase-ca.crt` y deja `DATABASE_SSL_CA=./supabase-ca.crt`. Si la API corre fuera de Supabase, el pooler de sesión suele ser la opción más compatible.
 4. En `frontend/config.js`, deja `http://localhost:3000/api` para desarrollo local.
 5. En una terminal, arranca el backend:
 

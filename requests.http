@@ -5,12 +5,12 @@
 ### Salud
 GET {{baseUrl}}/health
 
-### Registrar cuenta (elimina este bloque si ya existe)
+### Registrar una cuenta nueva (la cuenta demo ya está creada)
 POST {{baseUrl}}/auth/register
 Content-Type: application/json
 
 {
-  "email": "estudiante@example.com",
+  "email": "tu-correo@example.com",
   "password": "UnaClaveSegura123"
 }
 
@@ -19,8 +19,8 @@ POST {{baseUrl}}/auth/login
 Content-Type: application/json
 
 {
-  "email": "estudiante@example.com",
-  "password": "UnaClaveSegura123"
+  "email": "demo@bolsilloclaro.example",
+  "password": "BolsilloDemo2026!"
 }
 
 ### Crear gasto
