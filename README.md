@@ -2,6 +2,8 @@
 
 Una app para que una persona registre sus gastos y entienda en qué se le va el dinero, en vez de llevarlo en notas o en la memoria.
 
+> ¿Buscas una presentación breve del proyecto? Ve a [README_PRESENTACION.md](./README_PRESENTACION.md).
+
 ## Demo
 
 - App: [https://proyectofinal-frontend-ten.vercel.app/](https://proyectofinal-frontend-ten.vercel.app/)
